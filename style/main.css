@@ -1,0 +1,139 @@
+/* importando rezetes */
+@import url('normalize.css');
+@import url('reset.css');
+
+/* padroes do projeto */
+:root {
+    font-size: clamp(1rem,3vw,1.5rem);
+    --bAno: 10vw;
+}
+
+/* definindo 100% do display */
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* controle da agenda */
+
+.calendar {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 8fr 0.5fr;
+    grid-template-areas:
+        'c'
+        'd'
+        'l';
+}
+
+.control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.5rem;
+    grid-area: c;
+}
+
+.control ul {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    justify-content: space-between;
+}
+
+
+.control ul li span {
+    margin: 0 1rem;
+    font-weight: bold;
+}
+
+.control ul li button {
+    appearance: none;
+    border: none;
+    border-radius: 100%;
+    padding: 0;
+    width: var(--bAno);
+    height: var(--bAno);
+    max-height: 2rem;
+    max-width: 2rem;
+}
+
+
+
+/* tabela das datas */
+table {
+    table-layout: fixed;
+    width: 100%;
+    grid-area: d;
+}
+
+th,td {
+    text-align: center;
+}
+
+th {
+    font-weight: bold;
+}
+
+td {
+    border: 2px solid black;
+    padding-top: 3%;
+}
+
+
+/* lista de afazeres */
+.list {
+    position: relative;
+    grid-area: l;
+}
+
+.arrown {
+    position: absolute;
+    top: 10px;
+    right: 50%;
+    width: 3vw;
+    height: 3vw;
+    max-width: 1rem;
+    max-height: 1rem;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    transform: rotate(-45deg);
+}
+
+@media (min-width: 650px) and (max-width: 999px){
+    .calendar {
+        grid-template-columns: 8fr 0.5fr;
+        grid-template-rows: 1fr 8fr;
+        grid-template-areas:
+            'c l'
+            'd l';
+    }
+
+    .arrown {
+        transform: rotate(-135deg);
+        top: 55%;
+        left: 10px;
+        max-width: 0.5rem;
+        max-height: 0.5rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    .calendar {
+        max-height: 790px;
+        width: 95%;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 8fr;
+        grid-template-areas:
+            'c l'
+            'd l';
+    }
+    .arrown {
+        display: none;
+    }
+
+}
