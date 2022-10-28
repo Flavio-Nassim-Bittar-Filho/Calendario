@@ -52,6 +52,7 @@ const generateDays = (year,month,amountDays,startDay) => {
     }
 
     return days
+
 }
 
 
@@ -116,27 +117,36 @@ const HTMLyear = document.querySelector('.year')
 const HTMLmonth = document.querySelector('.month')
 
 // datas
-const HTMLdate = document.querySelectorAll('td')
+const HTMLdate = document.querySelectorAll('.dates td')
+
+// meses
+const HTMLmonths = document.querySelector('.months')
+
+// tabela de meses
+const HTMLtbMonths = document.querySelectorAll('.months td')
 
 
 // inicialização com data atual
 let date = new Date()
 let myCalendar = calendar(date.getFullYear()) 
 HTMLyear.textContent = myCalendar.year
-HTMLmonth.textContent = myCalendar.months[date.getMonth()].month
-
+HTMLmonth.textContent = myCalendar.getMonth(date.getMonth()).month
 
 
 // alterando os Anos
 HTMLbuttons.forEach(button => {
 
-    // gerando novo calendario apartir do ano
+    // gerando novo calendario
     button.addEventListener('click',() => {
         
         button.className == 'next' ? myCalendar = calendar(myCalendar.setYear('next')) : myCalendar = calendar(myCalendar.setYear('back'))
         HTMLyear.textContent = myCalendar.getYear()
         console.log(myCalendar)
-        console.log(myCalendar.getMonth(HTMLmonth.textContent))
+
+        HTMLdate.forEach((elementD,dIndex) => {
+            elementD.textContent = myCalendar.getMonth(HTMLmonth.textContent).days[dIndex].day
+            
+        })
 
     })
 
@@ -144,6 +154,32 @@ HTMLbuttons.forEach(button => {
 
 
 
-// alterando os dias
-// console.log(HTMLdate)
 console.log(myCalendar)
+
+// abrindo tabela de meses
+HTMLmonth.addEventListener('click', () => {
+    HTMLmonths.classList.contains('months-active') ? HTMLmonths.classList.remove('months-active') : HTMLmonths.classList.add('months-active')
+    
+})
+
+//alterando o mes
+HTMLtbMonths.forEach((elementTB,mIndexTB) => {
+    elementTB.textContent = myCalendar.getMonth(mIndexTB).month
+    
+    elementTB.addEventListener('click', () => {
+        HTMLmonth.textContent = myCalendar.getMonth(elementTB.textContent).month
+        
+        HTMLdate.forEach((elementD,dIndex) => {
+            elementD.textContent = myCalendar.getMonth(elementTB.textContent).days[dIndex].day
+            
+        })
+        
+        HTMLmonths.classList.remove('months-active')
+    })
+
+})
+
+// alterando os dias
+HTMLdate.forEach((element,dIndex) => {
+    element.textContent = myCalendar.getMonth(date.getMonth()).days[dIndex].day
+})
