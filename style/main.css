@@ -4,8 +4,11 @@
 
 /* padroes do projeto */
 :root {
-    font-size: clamp(1rem,3vw,1.5rem);
+    font-size: clamp(1rem,2vw,1.5rem);
     --bAno: 10vw;
+    --boxCurrent: 35%;
+    --imgSize: 30%
+    max(20px);
 }
 
 /* definindo 100% do display */
@@ -18,13 +21,12 @@ body {
 }
 
 
-/* controle da agenda */
-
+/* disposição dos elementos da agenda */
 .calendar {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr 8fr 0.5fr;
+    grid-template-rows: 110px 10fr 0.5fr;
     grid-template-areas:
         'c'
         'd'
@@ -32,40 +34,22 @@ body {
     background: #0a0a0a;
 }
 
+
+
+/* controles da agenda */
 .control {
+    position: relative;
     grid-area: c;
-}
-
-.months {
-    height: 90%;
-    width: 100%;
-    background: #1e1e1e;
-    position: absolute;
-    z-index: 1;
-    right: 100%;
-    bottom: 0;
-    transition: all 1s ease-in-out;
-}
-
-.months-active {
-    right: 0%;
-}
-
-.months table {
-    height: 100%;
-    width: 100%;
-    table-layout: fixed;
 }
 
 .control ul {
     display: flex;
     margin: 0 auto;
-    align-items: center;
-    height: 100%;
+    align-items: flex-end;
+    height: 80%;
     width: 90%;
     justify-content: space-between;
 }
-
 
 .control ul li span {
     margin: 0 1rem;
@@ -87,20 +71,85 @@ body {
     background: #1e1e1e;
 }
 
+.month {
+    cursor: pointer;
+}
+
+.current {
+    background: #1e1e1e;
+    position: absolute;
+    display: flex;
+    height: 25%;
+    border-radius: 0 0 10px 10px;
+    width: var(--boxCurrent);
+    top: 0;
+    left: calc(50% - (var(--boxCurrent)/2));
+}
+
+.theme {
+    width: 50%;
+    border-right: 2px solid #000000;
+    background: url('../img/brightness2.svg') center center no-repeat;
+    background-size: var(--imgSize);
+    border-radius: 0 0 0 10px;
+    transition: all .5s ease-in-out;
+}
+
+
+.currentDate {
+    width: 50%;
+    background: url('../img/calendar2.svg') center center no-repeat;
+    background-size: var(--imgSize);
+    border-radius: 0 0 10px 0;
+    transition: all .5s ease-in-out;
+}
+
+
+.currentDay {
+    background: #5c69a7;
+}
+
+.theme:hover {
+    background: white url('../img/brightness.svg') center center no-repeat;
+    background-size: var(--imgSize);
+
+}
+
+.currentDate:hover {
+    background: white url('../img/calendar.svg') center center no-repeat;
+    background-size: var(--imgSize);
+}
+
+.months {
+    height: calc(100% - 110px);
+    width: 100%;
+    background: #1e1e1e;
+    position: absolute;
+    z-index: 1;
+    right: 100%;
+    bottom: 0;
+    transition: all 1s ease-in-out;
+}
+
+.months-active {
+    right: 0%;
+}
+
+.months table {
+    height: 100%;
+    width: 100%;
+    table-layout: fixed;
+}
+
+
 
 
 /* tabela das datas */
-.dates {
+.days {
     table-layout: fixed;
     width: 100%;
     grid-area: d;
 }
-
-/* tr {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-} */
 
 th,td {
     text-align: center;
@@ -108,14 +157,28 @@ th,td {
     vertical-align: middle;
 }
 
+.weekend {
+    color: #ca1e1e;
+}
+
+
 th {
     font-weight: bold;
 }
 
 td {
-    /* border: 2px solid white; */
     width: 100%;
     position: relative;
+    transition: all .5s ease-out;
+}
+
+td:hover  {
+    background-color: #b7b7b7;
+    color: #0a0a0a;
+}
+
+td.weekend:hover {
+    background-color: #ca1e1e;
 }
 
 
@@ -141,7 +204,7 @@ td {
 @media (min-width: 650px) and (max-width: 999px){
     .calendar {
         grid-template-columns: 8fr 0.5fr;
-        grid-template-rows: 1fr 3fr;
+        grid-template-rows: 110px 3fr;
         grid-template-areas:
             'c l'
             'd l';
@@ -161,7 +224,7 @@ td {
         max-height: 790px;
         width: 95%;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 8fr;
+        grid-template-rows: 140px 8fr;
         border-radius: 60px;
         grid-template-areas:
             'c l'
@@ -171,4 +234,8 @@ td {
         display: none;
     }
 
+    tr:nth-child(6) td:nth-child(1) {
+        border-bottom-left-radius: 60px;
+    }
+    
 }
