@@ -36,30 +36,38 @@ const generateDays = (year,month,amountDays,startDay) => {
     // cria os dias conforme o os meses do pseudo calendario
     const days = []
     if(months[month] == 31 && (months[month - 1] == undefined || months[month - 1] == 31)){
+
         for(let day = 0; day < amountDays; day++) {
+
             if(day < startDay) {
-                days.push({day:(day + 1) + (31 - startDay),text:''})
+                days.push({day:(day + 1) + (31 - startDay)})
             }
             else if(day >= months[month] + startDay){
-                days.push({day:((day + 1) - (months[month] + startDay)),text:''})
+                days.push({day:((day + 1) - (months[month] + startDay))})
             }
             else {
                 days.push({day:((day + 1) - startDay),text:''})
             }
+
         }
+
     }
     else {
+
         for(let day = 0; day < amountDays; day++) {
+
             if(day < startDay) {
-                days.push({day:(day + 1) + (months[month - 1] - startDay),text:''})
+                days.push({day:(day + 1) + (months[month - 1] - startDay)})
             }
             else if(day >= months[month] + startDay){
-                days.push({day:((day + 1) - (months[month] + startDay)),text:''})
+                days.push({day:((day + 1) - (months[month] + startDay))})
             }
             else {
                 days.push({day:((day + 1) - startDay),text:''})
             }
+
         }
+
     }
 
     return days
@@ -70,14 +78,12 @@ const generateDays = (year,month,amountDays,startDay) => {
 // função para gerar dia atual
 const CurrentDay = (days,month,year) => {
 
-    // pseudo calendario com o numero de dias de cada mese
-    const months = pseudoMonths(year)
-
     for(let i = 0; i < days.length; i++) {
 
         if(days[i].day == date.getDate() && month == date.getMonth() && year == date.getFullYear()) {
             return days[i].day
         }
+
     }
     
 }
@@ -108,11 +114,13 @@ const calendar = yeear => {
 
     // logica para adicionar os meses, dias e anotações  
     months.forEach((month,mIndex) => {
+
         let firstDay = new Date(yeear,mIndex,1) 
         month.startDay = firstDay.getDay()
         month.length = daysMonth(year,mIndex)
         month.days = generateDays(year,mIndex,42,month.startDay)
         month.currentDay = CurrentDay(month.days,mIndex,year)
+
     })
 
 
@@ -123,7 +131,8 @@ const calendar = yeear => {
         getIndexMonth : (monthCompare) => months.indexOf(months.filter(element => element.month == monthCompare)[0]),
         getMonth : (monthCompare) => typeof(monthCompare) != typeof(0) ? months.filter(element => element.month == monthCompare)[0] : months[monthCompare],
         getYear : () => year,
-        setYear : (go) => go == 'next' ? year += 1 : go == 'current' ?  year = currentYear : year -= 1,
+        setYear : (go) => go == 'next' ? year += 1 : go == 'current' ?  year = currentYear : year -= 1
+
     }
 
     return calendar
@@ -150,7 +159,7 @@ const HTMLyear = document.querySelector('.year')
 const HTMLmonth = document.querySelector('.month')
 
 // tabela com os dias do mes 
-const HTMLdate = document.querySelectorAll('.days td')
+const HTMLdays = document.querySelectorAll('.days td')
 
 // campo que armazena a tabela de meses
 const HTMLmonths = document.querySelector('.months')
@@ -184,14 +193,51 @@ const population = (calendar,elementD,dIndex) => {
 }
 
 
+
+// dias do mes 
+HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
+    let startMonth = myCalendar.getMonth(HTMLmonth.textContent).startDay
+    let endMonth = myCalendar.getMonth(HTMLmonth.textContent).length + startMonth
+    // let valueDay = myCalendar.getMonth(HTMLmonth.textContent).days[dIndex].day
+
+    // console.log(myCalendar.getMonth(myCalendar.getIndexMonth(HTMLmonth.textContent) + 1).month,myCalendar.getIndexMonth(HTMLmonth.textContent) + 1)
+    if(dIndex < startMonth) {
+        if((myCalendar.getIndexMonth(HTMLmonth.textContent) - 1) < 0) {
+            myCalendar = calendar(myCalendar.setYear('back'))
+            HTMLyear.textContent = myCalendar.getYear()
+            HTMLmonth.textContent = myCalendar.getMonth(11).month
+            HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+        } 
+        else {
+            HTMLmonth.textContent = myCalendar.getMonth(myCalendar.getIndexMonth(HTMLmonth.textContent) - 1).month
+            HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+        }
+    }
+    else if(dIndex >= endMonth) {
+        if((myCalendar.getIndexMonth(HTMLmonth.textContent) + 1) > 11) {
+            myCalendar = calendar(myCalendar.setYear('next'))
+            HTMLyear.textContent = myCalendar.getYear()
+            HTMLmonth.textContent = myCalendar.getMonth(0).month
+            HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+        } 
+        else {
+            HTMLmonth.textContent = myCalendar.getMonth(myCalendar.getIndexMonth(HTMLmonth.textContent) + 1).month
+            HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+        }
+    }
+
+}))
+
+
+
+
 // função para gerar data atual -> interface grafica
 const currentData = (myCalendar) => {
     myCalendar = calendar(myCalendar.setYear('current'))
     HTMLyear.textContent = myCalendar.getYear()
     HTMLmonth.textContent = myCalendar.getMonth(date.getMonth()).month
-    HTMLdate.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
-    console.log(myCalendar)
-    
+    HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+
 }
 
 
@@ -203,17 +249,15 @@ let myCalendar = calendar(date.getFullYear())
 currentData(myCalendar)
 
 
-// alterando os Anos
+// botão para alterar o ano
 HTMLbuttons.forEach(button => {
 
-    // gerando novo calendario
     button.addEventListener('click',() => {
         
         button.className == 'next' ? myCalendar = calendar(myCalendar.setYear('next')) : myCalendar = calendar(myCalendar.setYear('back'))
         HTMLyear.textContent = myCalendar.getYear()
-        console.log(myCalendar)
 
-        HTMLdate.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+        HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
 
     })
 
@@ -236,7 +280,7 @@ HTMLtbMonths.forEach((elementTB,mIndexTB) => {
     elementTB.addEventListener('click', () => {
         HTMLmonth.textContent = myCalendar.getMonth(elementTB.textContent).month
         
-        HTMLdate.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+        HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
         
         HTMLmonths.classList.remove('months-active')
     
