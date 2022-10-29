@@ -18,6 +18,7 @@ body {
     justify-content: center;
     align-items: center;
     background: #2e2e2e;
+    overflow: hidden;
 }
 
 
@@ -128,7 +129,7 @@ body {
     z-index: 1;
     right: 100%;
     bottom: 0;
-    transition: all 1s ease-in-out;
+    transition: right 1s ease-in-out;
 }
 
 .months-active {
@@ -170,6 +171,10 @@ td {
     width: 100%;
     position: relative;
     transition: all .5s ease-out;
+}
+
+.anotherMonth {
+    color: #2e2e2e;
 }
 
 td:hover  {
@@ -217,6 +222,18 @@ td.weekend:hover {
         max-width: 0.5rem;
         max-height: 0.5rem;
     }
+
+    .months {
+        right: 0;
+        bottom: -100%;
+        transition: bottom 1s ease-in-out;
+    }
+
+    .months-active {
+        bottom: 0;
+    }
+
+
 }
 
 @media (min-width: 1000px) {

@@ -1,7 +1,7 @@
 // função para saber se o ano é bissexto
 const yearBi = year => year % 4 == 0 && year % 100 != 0 || year % 400 == 0 ? true : false
 
-// função para saber se o mes tem 30 ou 31 dias 
+// função para saber a quantidade de dias de cada mes 
 const daysMonth = (year,month,startDay = 0) => {
 
     if(month == 1) {
@@ -30,7 +30,7 @@ const pseudoMonths = (year) => {
 // função para gerar dias 
 const generateDays = (year,month,amountDays,startDay) => {
     
-    // pseudo calendario com o numero de dias de cada mese
+    // pseudo calendario 
     const months = pseudoMonths(year)
 
     // cria os dias conforme o os meses do pseudo calendario
@@ -137,66 +137,67 @@ const calendar = yeear => {
 
 // colocando no HTML as informaçoes
 
-// botoes
+// botoes de avançar e voltar os anos
 const HTMLbuttons = document.querySelectorAll('button')
 
-// data atual
+// botão de localizar data atual
 const HTMLcurrentData = document.querySelector('.currentDate')
 
-// ano
+// ano selecionado 
 const HTMLyear = document.querySelector('.year')
 
-// mes
+// mes selecionado
 const HTMLmonth = document.querySelector('.month')
 
-// datas
+// tabela com os dias do mes 
 const HTMLdate = document.querySelectorAll('.days td')
 
-// meses
+// campo que armazena a tabela de meses
 const HTMLmonths = document.querySelector('.months')
 
-// tabela de meses
+// tabela de meses para seleção
 const HTMLtbMonths = document.querySelectorAll('.months td')
 
 
 
-// função para popular os dias no calendario
+// função para popular os dias no calendario -> interface grafica
 const population = (calendar,elementD,dIndex) => {
-    if(calendar.getMonth(HTMLmonth.textContent).days[dIndex].day <= 7){
-        if(calendar.getMonth(HTMLmonth.textContent).currentDay == calendar.getMonth(HTMLmonth.textContent).days[dIndex].day && dIndex < calendar.getMonth(HTMLmonth.textContent).length) {
-            elementD.textContent = calendar.getMonth(HTMLmonth.textContent).days[dIndex].day
-            elementD.classList.add('currentDay')
-        }
-        else {
-            elementD.textContent = calendar.getMonth(HTMLmonth.textContent).days[dIndex].day
-            elementD.classList.remove('currentDay')
-        }
+    
+    let startMonth = calendar.getMonth(HTMLmonth.textContent).startDay
+    let endMonth = calendar.getMonth(HTMLmonth.textContent).length + startMonth
+    let valueDay = calendar.getMonth(HTMLmonth.textContent).days[dIndex].day
+    let currentDay = calendar.getMonth(HTMLmonth.textContent).currentDay
+    
+    if(dIndex <  startMonth || dIndex >= endMonth) {
+        elementD.textContent = valueDay
+        elementD.classList.add('anotherMonth')
+        elementD.classList.remove('currentDay')
+
     }
     else {
-        if(calendar.getMonth(HTMLmonth.textContent).currentDay == calendar.getMonth(HTMLmonth.textContent).days[dIndex].day && dIndex > 6) {
-            elementD.textContent = calendar.getMonth(HTMLmonth.textContent).days[dIndex].day
-            elementD.classList.add('currentDay')
-        }
-        else {
-            elementD.textContent = calendar.getMonth(HTMLmonth.textContent).days[dIndex].day
-            elementD.classList.remove('currentDay')
-        }
+        elementD.textContent = valueDay 
+        currentDay == valueDay ? elementD.classList.add('currentDay') : elementD.classList.remove('currentDay')
+        elementD.classList.remove('anotherMonth')
+        
     }
 
 }
 
 
-// função para gerar data atual
+// função para gerar data atual -> interface grafica
 const currentData = (myCalendar) => {
     myCalendar = calendar(myCalendar.setYear('current'))
     HTMLyear.textContent = myCalendar.getYear()
     HTMLmonth.textContent = myCalendar.getMonth(date.getMonth()).month
     HTMLdate.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
     console.log(myCalendar)
+    
 }
 
 
-// inicializando o calendario na data atual
+
+
+// inicializando o calendario na data atual ao carregar a pagina
 let date = new Date()
 let myCalendar = calendar(date.getFullYear()) 
 currentData(myCalendar)
