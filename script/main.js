@@ -198,9 +198,7 @@ const population = (calendar,elementD,dIndex) => {
 HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
     let startMonth = myCalendar.getMonth(HTMLmonth.textContent).startDay
     let endMonth = myCalendar.getMonth(HTMLmonth.textContent).length + startMonth
-    // let valueDay = myCalendar.getMonth(HTMLmonth.textContent).days[dIndex].day
 
-    // console.log(myCalendar.getMonth(myCalendar.getIndexMonth(HTMLmonth.textContent) + 1).month,myCalendar.getIndexMonth(HTMLmonth.textContent) + 1)
     if(dIndex < startMonth) {
         if((myCalendar.getIndexMonth(HTMLmonth.textContent) - 1) < 0) {
             myCalendar = calendar(myCalendar.setYear('back'))

@@ -1,0 +1,151 @@
+/* dark theme */
+
+
+/* cor de fundo da agenda */
+.calendar_dark {
+    background: #0f0f0f;
+
+}
+
+
+/* cor da area do controle dos meses e ano */
+.control_dark {
+    background: #080808;
+    color: #ffffff;
+    font-weight: bold;
+    transition: all .5s ease-out;
+
+}
+
+.control_dark span {
+    margin: 0 1rem;
+}
+
+.control_dark .month {
+    transition: all .5s ease-out;
+
+}
+
+.control_dark .month:hover {
+    color: #080808;
+    font-weight: bold;
+    filter: drop-shadow(0px 0px 3px #ffffff);
+
+}
+
+.control_dark ul li button {
+    background: #1e1e1e;
+    color: #ffffff;
+    transition: all .5s ease-out;
+
+}
+
+.control_dark ul li button:hover {
+    background: #ffffff;
+    color: #1e1e1e;
+
+}
+
+
+
+/* cor da area de tem e data atual */
+.current_dark {
+    background: #1e1e1e;
+
+}
+
+.current_dark .theme {
+    border-right: 2px solid #080808;
+    
+}
+
+.current_dark .theme:hover {
+    background: #ffffff url('../../img/brightness.svg') center center no-repeat;
+    background-size: var(--imgSize);
+
+}
+
+.current_dark .currentDate:hover {
+    background: #ffffff url('../../img/calendar.svg') center center no-repeat;
+    background-size: var(--imgSize);
+
+}
+
+/* area dos meses */
+
+.months_dark {
+    background: #1e1e1e;
+
+}
+
+.months_dark td {
+    transition: all .5s ease-out;
+
+}
+
+.months_dark td:hover {
+    color: #080808;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: #2e2e2e30;
+    filter: drop-shadow(0px 0px 3px #ffffff);
+
+}
+
+
+/* area dos dias */
+
+/* dia atual efeito */
+.days_dark .currentDay {
+    background: #0f0f0f0d;
+    color: #ffffff; 
+    font-weight: bold;
+    filter: drop-shadow(0px 0px 6px #ffffff);
+
+}
+
+.days_dark th,td {
+    color: #cfcfcf;
+
+}
+
+.days_dark td {
+    border-radius: 10px;
+    transition: all .5s ease-out;
+
+}
+
+.days_dark td:hover  {
+    background-color: #cfcfcf;
+    color: #0f0f0f;
+    
+}
+
+/* finais de semana */
+.weekend {
+    color: #ca1e1e;
+}
+
+td.weekend:hover {
+    color: #0f0f0f;
+    background-color: #ca1e1e;
+}
+
+.anotherMonth {
+    color: #2e2e2e;
+
+}
+
+td.anotherMonth:hover {
+    color: #cfcfcf;
+    background-color: #2e2e2e30;
+
+}
+
+
+/* area da lista */
+
+.list_dark {
+    background: #080808;
+
+}
