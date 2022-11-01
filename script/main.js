@@ -219,8 +219,8 @@ HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
     // teste para implementar a função getDay() -> encontra o objeto dia referente a string passada 
     console.log(myCalendar.getMonth(HTMLmonth.textContent))
     console.log(myCalendar.getMonth(HTMLmonth.textContent).days)
-    console.log(myCalendar.getMonth(HTMLmonth.textContent).days.filter(element => element.day == day.textContent)[0])
-    console.log(myCalendar.getMonth(HTMLmonth.textContent).getDay(day.textContent))
+    console.log(myCalendar.getMonth(HTMLmonth.textContent).days.filter(element => element.day == day.textContent)[0]) // Resultado que espero com minha função !!!
+    console.log(myCalendar.getMonth(HTMLmonth.textContent).getDay(day.textContent)) // testando minha função !!!
     select(day)
 
 
