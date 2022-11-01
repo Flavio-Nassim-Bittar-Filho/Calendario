@@ -48,7 +48,7 @@
 
 
 
-/* cor da area de tem e data atual */
+/* cor da area de tema e data atual */
 .current_dark {
     background: #1e1e1e;
 
@@ -97,14 +97,19 @@
 
 /* dia atual efeito */
 .days_dark .currentDay {
-    background: #0f0f0f0d;
+    background: #ffffff1f;
     color: #ffffff; 
     font-weight: bold;
     filter: drop-shadow(0px 0px 6px #ffffff);
 
 }
 
-.days_dark th,td {
+.daySelection {
+    background-color: #1e1e1e;
+    font-weight: bold;
+}
+
+th,td {
     color: #cfcfcf;
 
 }

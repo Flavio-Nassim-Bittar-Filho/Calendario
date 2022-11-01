@@ -131,7 +131,8 @@ const calendar = yeear => {
         getIndexMonth : (monthCompare) => months.indexOf(months.filter(element => element.month == monthCompare)[0]),
         getMonth : (monthCompare) => typeof(monthCompare) != typeof(0) ? months.filter(element => element.month == monthCompare)[0] : months[monthCompare],
         getYear : () => year,
-        setYear : (go) => go == 'next' ? year += 1 : go == 'current' ?  year = currentYear : year -= 1
+        setYear : (go) => go == 'next' ? year += 1 : go == 'current' ?  year = currentYear : year -= 1,
+        getDay : (dayCompare) => days.filter(element => element.day == dayCompare)[0]
 
     }
 
@@ -181,35 +182,61 @@ const population = (calendar,elementD,dIndex) => {
         elementD.textContent = valueDay
         elementD.classList.add('anotherMonth')
         elementD.classList.remove('currentDay')
+        elementD.classList.remove('daySelection')
 
     }
     else {
         elementD.textContent = valueDay 
         currentDay == valueDay ? elementD.classList.add('currentDay') : elementD.classList.remove('currentDay')
         elementD.classList.remove('anotherMonth')
-        
+        elementD.classList.remove('daySelection')
+    }
+
+}
+
+// função de selecionar data
+const select = day => {
+
+    if(day.classList.contains('daySelection')) {
+        day.classList.add('daySelection')
+    } 
+    else {
+        HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+        day.classList.add('daySelection')
     }
 
 }
 
 
 
-// dias do mes 
+
+// dias do mes -> interface grafica
 HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
     let startMonth = myCalendar.getMonth(HTMLmonth.textContent).startDay
     let endMonth = myCalendar.getMonth(HTMLmonth.textContent).length + startMonth
 
+    
+    // teste para implementar a função getDay() -> encontra o objeto dia referente a string passada 
+    console.log(myCalendar.getMonth(HTMLmonth.textContent))
+    console.log(myCalendar.getMonth(HTMLmonth.textContent).days)
+    console.log(myCalendar.getMonth(HTMLmonth.textContent).days.filter(element => element.day == day.textContent)[0])
+    console.log(myCalendar.getMonth(HTMLmonth.textContent).getDay(day.textContent))
+    select(day)
+
+
+    // Alterando o mes apartir dos dias 
     if(dIndex < startMonth) {
         if((myCalendar.getIndexMonth(HTMLmonth.textContent) - 1) < 0) {
             myCalendar = calendar(myCalendar.setYear('back'))
             HTMLyear.textContent = myCalendar.getYear()
             HTMLmonth.textContent = myCalendar.getMonth(11).month
-            HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+            HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))            
         } 
         else {
             HTMLmonth.textContent = myCalendar.getMonth(myCalendar.getIndexMonth(HTMLmonth.textContent) - 1).month
             HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
         }
+
     }
     else if(dIndex >= endMonth) {
         if((myCalendar.getIndexMonth(HTMLmonth.textContent) + 1) > 11) {
@@ -221,9 +248,11 @@ HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
         else {
             HTMLmonth.textContent = myCalendar.getMonth(myCalendar.getIndexMonth(HTMLmonth.textContent) + 1).month
             HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
-        }
-    }
 
+        }
+
+    }
+    
 }))
 
 
@@ -270,7 +299,7 @@ HTMLmonth.addEventListener('click', () => {
     
 })
 
-//alterando o mes
+//alterando o mes pela tabela de meses
 HTMLtbMonths.forEach((elementTB,mIndexTB) => {
 
     elementTB.textContent = myCalendar.getMonth(mIndexTB).month
