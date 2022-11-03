@@ -80,7 +80,7 @@ const CurrentDay = (days,month,year) => {
 
     for(let i = 0; i < days.length; i++) {
 
-        if(days[i].day == date.getDate() && month == date.getMonth() && year == date.getFullYear()) {
+        if(days[i].day == new Date().getDate() && month == new Date().getMonth() && year == new Date().getFullYear()) {
             return days[i].day
         }
 
@@ -93,7 +93,6 @@ const CurrentDay = (days,month,year) => {
 // função construtora do calendario
 const calendar = yeear => {
 
-    const currentYear = new Date().getFullYear()
     let year = yeear
     let months = [
         {month:'Janeiro',days:undefined},
@@ -120,6 +119,7 @@ const calendar = yeear => {
         month.length = daysMonth(year,mIndex)
         month.days = generateDays(year,mIndex,42,month.startDay)
         month.currentDay = CurrentDay(month.days,mIndex,year)
+        month.getDay = (dayCompare) => month.days.filter(element => element.day == dayCompare)[0]
 
     })
 
@@ -131,9 +131,8 @@ const calendar = yeear => {
         getIndexMonth : (monthCompare) => months.indexOf(months.filter(element => element.month == monthCompare)[0]),
         getMonth : (monthCompare) => typeof(monthCompare) != typeof(0) ? months.filter(element => element.month == monthCompare)[0] : months[monthCompare],
         getYear : () => year,
-        setYear : (go) => go == 'next' ? year += 1 : go == 'current' ?  year = currentYear : year -= 1,
-        getDay : (dayCompare) => days.filter(element => element.day == dayCompare)[0]
-
+        setYear : (go) => go == 'next' ? year += 1 : go == 'back' ? year -= 1 : year = new Date().getFullYear()
+        
     }
 
     return calendar
@@ -194,9 +193,9 @@ const population = (calendar,elementD,dIndex) => {
 
 }
 
-// função de selecionar data
+// função de selecionar data -> interface grafica
 const select = day => {
-
+    
     if(day.classList.contains('daySelection')) {
         day.classList.add('daySelection')
     } 
@@ -208,33 +207,26 @@ const select = day => {
 }
 
 
-
-
 // dias do mes -> interface grafica
 HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
+
     let startMonth = myCalendar.getMonth(HTMLmonth.textContent).startDay
     let endMonth = myCalendar.getMonth(HTMLmonth.textContent).length + startMonth
-
-    
-    // teste para implementar a função getDay() -> encontra o objeto dia referente a string passada 
-    console.log(myCalendar.getMonth(HTMLmonth.textContent))
-    console.log(myCalendar.getMonth(HTMLmonth.textContent).days)
-    console.log(myCalendar.getMonth(HTMLmonth.textContent).days.filter(element => element.day == day.textContent)[0]) // Resultado que espero com minha função !!!
-    console.log(myCalendar.getMonth(HTMLmonth.textContent).getDay(day.textContent)) // testando minha função !!!
     select(day)
-
 
     // Alterando o mes apartir dos dias 
     if(dIndex < startMonth) {
         if((myCalendar.getIndexMonth(HTMLmonth.textContent) - 1) < 0) {
             myCalendar = calendar(myCalendar.setYear('back'))
             HTMLyear.textContent = myCalendar.getYear()
-            HTMLmonth.textContent = myCalendar.getMonth(11).month
-            HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))            
-        } 
+            HTMLmonth.textContent = myCalendar.getMonth(11).month   
+            HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex)) 
+
+        }
         else {
             HTMLmonth.textContent = myCalendar.getMonth(myCalendar.getIndexMonth(HTMLmonth.textContent) - 1).month
             HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+
         }
 
     }
@@ -244,6 +236,7 @@ HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
             HTMLyear.textContent = myCalendar.getYear()
             HTMLmonth.textContent = myCalendar.getMonth(0).month
             HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+
         } 
         else {
             HTMLmonth.textContent = myCalendar.getMonth(myCalendar.getIndexMonth(HTMLmonth.textContent) + 1).month
@@ -260,20 +253,21 @@ HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
 
 // função para gerar data atual -> interface grafica
 const currentData = (myCalendar) => {
-    myCalendar = calendar(myCalendar.setYear('current'))
-    HTMLyear.textContent = myCalendar.getYear()
-    HTMLmonth.textContent = myCalendar.getMonth(date.getMonth()).month
-    HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
 
+    let newCalendar = calendar(myCalendar.setYear())
+    HTMLyear.textContent = newCalendar.getYear()
+    HTMLmonth.textContent = newCalendar.getMonth(new Date().getMonth()).month
+    HTMLdays.forEach((elementD,dIndex) => population(newCalendar,elementD,dIndex))
+
+    return newCalendar
 }
 
 
 
 
 // inicializando o calendario na data atual ao carregar a pagina
-let date = new Date()
-let myCalendar = calendar(date.getFullYear()) 
-currentData(myCalendar)
+let myCalendar = calendar(new Date().getFullYear()) 
+myCalendar = currentData(myCalendar)
 
 
 // botão para alterar o ano
@@ -283,7 +277,6 @@ HTMLbuttons.forEach(button => {
         
         button.className == 'next' ? myCalendar = calendar(myCalendar.setYear('next')) : myCalendar = calendar(myCalendar.setYear('back'))
         HTMLyear.textContent = myCalendar.getYear()
-
         HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
 
     })
@@ -291,7 +284,7 @@ HTMLbuttons.forEach(button => {
 })
 
 // indo para a data atual
-HTMLcurrentData.addEventListener('click', () => currentData(myCalendar))
+HTMLcurrentData.addEventListener('click', () => myCalendar = currentData(myCalendar))
 
 // abrindo tabela de meses
 HTMLmonth.addEventListener('click', () => {

@@ -21,7 +21,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    background: #252525;
 }
 
 
@@ -113,7 +113,7 @@ body {
 /* area das dos meses  */
 .months {
     width: 100%;
-    height: calc(100% - 110px);
+    height: calc(100% - 75px);
     position: absolute;
     right: 100%;
     bottom: 0;
@@ -184,10 +184,14 @@ td {
 @media (min-width: 650px) and (max-width: 999px){
     .calendar {
         grid-template-columns: 8fr 0.5fr;
-        grid-template-rows: 110px 3fr;
+        grid-template-rows: 75px 3fr;
         grid-template-areas:
             'c l'
             'd l';
+    }
+
+    .current {
+        height: 35%;
     }
 
     .arrown {
