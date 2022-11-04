@@ -119,7 +119,7 @@ const calendar = yeear => {
         month.length = daysMonth(year,mIndex)
         month.days = generateDays(year,mIndex,42,month.startDay)
         month.currentDay = CurrentDay(month.days,mIndex,year)
-        month.getDay = (dayCompare) => month.days.filter(element => element.day == dayCompare)[0]
+        month.getDay = (dayCompare) => month.days.slice(month.startDay,month.startDay + month.length).filter(element => element.day == dayCompare)[0]
 
     })
 
@@ -173,6 +173,9 @@ const HTMLinput = document.querySelector('.containerList')
 // calendario e distribuição de tamanhos 
 const HTMLlist = document.querySelector('.list')
 
+//texto
+const HTMLtext = document.querySelector('textarea')
+
 const HTMLarrown = document.querySelector('.arrown')
 
 // função para popular os dias no calendario -> interface grafica
@@ -212,6 +215,9 @@ const select = day => {
 
 }
 
+//função para digitar texto
+
+
 // função para selecionar os elementos conforme o valor -> interface grafica
 const selectDay = dayCompare => {
 
@@ -223,7 +229,12 @@ const selectDay = dayCompare => {
     validDays = validDays.slice(startMonth,endMonth)   
     daySelection = validDays.filter(day => day.textContent == dayCompare)[0]
     select(daySelection)
-    
+    let dayObj = myCalendar.getMonth(HTMLmonth.textContent).getDay(daySelection.textContent)
+    // console.log(dayObj)
+    // dayObj.text = HTMLtext.value
+    // console.log(HTMLtext)
+    // HTMLtext.value = dayObj.text
+
 }
 
 
@@ -236,7 +247,7 @@ HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
 
     let oldDay = day.textContent
 
-    // Alterando o mes apartir dos dias 
+    // Alterando o mes apartir dos dias -> interface grafica
     if(dIndex < startMonth) {
         if((myCalendar.getIndexMonth(HTMLmonth.textContent) - 1) < 0) {
             myCalendar = calendar(myCalendar.setYear('back'))
