@@ -12,6 +12,8 @@
     --bAno: 10vw;
     --boxCurrent: 35%;
     --imgSize: 30% max(70%);
+    --inputSize: 88%;
+    --inputWidth: 95%
 
 }
 
@@ -34,10 +36,10 @@ body {
     display: grid;
     position: relative;
     grid-template-rows: 110px 10fr 0.5fr;
-    grid-template-areas: 'c'
-                         'd'
-                         'l';
-
+    grid-template-areas:
+        'c'
+        'd'
+        'l';
 }
 
 
@@ -113,7 +115,7 @@ body {
 /* area das dos meses  */
 .months {
     width: 100%;
-    height: calc(100% - 75px);
+    height: calc(100% - 95px);
     position: absolute;
     right: 100%;
     bottom: 0;
@@ -161,9 +163,37 @@ td {
 
 
 /* lista de afazeres */
+
+.containerList {
+    width: 100%;
+    height: 30px;
+}
+
 .list {
     position: relative;
     grid-area: l;
+    height: 30px;
+    transition: height .5s ease-in-out;
+}
+
+.input {
+    border: 1px solid #0f0f0f;
+    width: 93%;
+    height: 85%;
+    position: absolute;
+    right: calc(50% - var(--inputWidth)/2);
+    background: #1e1e1e;
+    resize: none;
+    color: #ffffff;
+}
+
+.input:focus {
+    outline: none;
+}
+
+/* abrindo input */
+.input-active {
+    height: 300px;
 }
 
 .arrown {
@@ -175,33 +205,66 @@ td {
     border-top: 2px solid white;
     border-right: 2px solid white;
     transform: rotate(-45deg);
+    transition: all .5s ease-in-out;
 }
 
-
+.arrown-active {
+    transform: rotate(-225deg);
+}
 
 /* tamanhos de telas */
 
 @media (min-width: 650px) and (max-width: 999px){
     .calendar {
         grid-template-columns: 8fr 0.5fr;
-        grid-template-rows: 75px 3fr;
+        grid-template-rows: 95px 3fr;
         grid-template-areas:
             'c l'
             'd l';
     }
 
     .current {
-        height: 35%;
+        height: 30%;
+    }
+    
+    .containerList {
+        width: 45px;
+        height: 100%;
+    }
+    
+    .list {
+        width: 45px;
+        height: 100%;
+        transition: all .5s ease-in-out;
+
     }
 
+    .input {
+        width: 83%;
+        height: 88%;
+        position: absolute;
+        top: calc(50% - var(--inputSize)/2);
+        left: 45px;
+        background: #1e1e1e;
+    }
+
+    .input-active {
+        width: 370px;
+    }
+    
     .arrown {
         transform: rotate(-135deg);
         top: 55%;
         left: 10px;
         max-width: 0.5rem;
         max-height: 0.5rem;
+    
     }
 
+    .arrown-active {
+        transform: rotate(45deg);
+    }
+    
     .months {
         right: 0;
         bottom: -100%;
@@ -229,7 +292,7 @@ td {
             'd l';
     
     }
-
+    
     .months {
         width: 50%;
         height: calc(100% - 140px);
@@ -245,9 +308,27 @@ td {
 
     }
 
+    .containerList {
+        display: none;
+    }
+
     tr:nth-child(6) td:nth-child(1) {
         border-bottom-left-radius: 60px;
     
     }
 
+    .list {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .input {
+        background: #0f0f0f;
+        height: 95%;
+        width: 95%;
+        border-radius: 0 60px 60px 0;
+    }
 }

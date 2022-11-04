@@ -167,7 +167,13 @@ const HTMLmonths = document.querySelector('.months')
 // tabela de meses para seleção
 const HTMLtbMonths = document.querySelectorAll('.months td')
 
+//botão de texto
+const HTMLinput = document.querySelector('.containerList')
 
+// calendario e distribuição de tamanhos 
+const HTMLlist = document.querySelector('.list')
+
+const HTMLarrown = document.querySelector('.arrown')
 
 // função para popular os dias no calendario -> interface grafica
 const population = (calendar,elementD,dIndex) => {
@@ -193,7 +199,7 @@ const population = (calendar,elementD,dIndex) => {
 
 }
 
-// função de selecionar data -> interface grafica
+// função para aplicar marca de seleção na data -> interface grafica
 const select = day => {
     
     if(day.classList.contains('daySelection')) {
@@ -208,6 +214,7 @@ const select = day => {
 
 // função para selecionar os elementos conforme o valor -> interface grafica
 const selectDay = dayCompare => {
+
     startMonth = myCalendar.getMonth(HTMLmonth.textContent).startDay
     endMonth = myCalendar.getMonth(HTMLmonth.textContent).length + startMonth
     
@@ -216,6 +223,7 @@ const selectDay = dayCompare => {
     validDays = validDays.slice(startMonth,endMonth)   
     daySelection = validDays.filter(day => day.textContent == dayCompare)[0]
     select(daySelection)
+    
 }
 
 
@@ -264,6 +272,20 @@ HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
 
 }))
 
+
+//abrindo input para escrever texto
+HTMLinput.addEventListener('click', () => {
+    if(HTMLlist.classList.contains('input-active')) {
+        HTMLlist.classList.remove('input-active')
+        HTMLarrown.classList.remove('arrown-active')
+    }
+    else {
+        HTMLlist.classList.add('input-active')
+        HTMLarrown.classList.add('arrown-active')
+
+    }
+
+})
 
 
 
