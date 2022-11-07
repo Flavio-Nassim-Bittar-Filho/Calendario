@@ -224,28 +224,34 @@ const selectDay = dayCompare => {
     startMonth = myCalendar.getMonth(HTMLmonth.textContent).startDay
     endMonth = myCalendar.getMonth(HTMLmonth.textContent).length + startMonth
     
+    // criando dias validos do mes e selecionando o dia clickado
     let validDays = []
     HTMLdays.forEach(day => validDays.push(day))
     validDays = validDays.slice(startMonth,endMonth)   
     daySelection = validDays.filter(day => day.textContent == dayCompare)[0]
     select(daySelection)
-    let dayObj = myCalendar.getMonth(HTMLmonth.textContent).getDay(daySelection.textContent)
-    console.log(dayObj)
-    // dayObj.text = HTMLtext.value
-    // console.log(HTMLtext)
-    // HTMLtext.value = dayObj.text
 
+    // selecionando o obj do dia valido clickado
+    const dayObj = myCalendar.getMonth(HTMLmonth.textContent).getDay(daySelection.textContent)
+    
+    // retornar as informaçoes na tela
+    HTMLtext.value = dayObj.text
 }
 
 
+// Captura das informaçoes digitas no campo de input
+HTMLtext.addEventListener('keyup', () => {
+    const dayObj = myCalendar.getMonth(HTMLmonth.textContent).getDay(daySelection.textContent)
+    dayObj.text = HTMLtext.value
+    console.log(dayObj)
+    
+})
 
 // dias do mes -> interface grafica
 HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
 
     let startMonth = myCalendar.getMonth(HTMLmonth.textContent).startDay
     let endMonth = myCalendar.getMonth(HTMLmonth.textContent).length + startMonth
-
-    let oldDay = day.textContent
 
     // Alterando o mes apartir dos dias -> interface grafica
     if(dIndex < startMonth) {
@@ -278,8 +284,7 @@ HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
         }
 
     }
-
-    selectDay(oldDay)
+    selectDay(day.textContent)
 
 }))
 
