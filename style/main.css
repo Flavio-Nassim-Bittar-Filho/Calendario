@@ -4,15 +4,14 @@
 /* importando  */
 @import url('normalize.css');
 @import url('reset.css');
-@import url('theme/dark.css');
+@import url('theme/ligth.css');
 
 /* definido variaveis e padroes */
 :root {
     font-size: clamp(1rem,2vw,1.5rem);
     --bAno: 10vw;
     --boxCurrent: 35%;
-    --imgSize: 30%
-    max(70%);
+    --imgSize: 30% max(70%);
     --inputSize: 88%;
     --inputWidth: 95%;
     --buttonSize: 100%;
@@ -24,7 +23,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #252525;
 }
 
 
@@ -92,11 +90,11 @@ body {
     top: 0;
     left: calc(50% - (var(--boxCurrent)/2));
     cursor: pointer;
+    
 }
 
 .theme {
     width: 50%;
-    background: url('../img/brightness2.svg') center center no-repeat;
     background-size: var(--imgSize);
     border-radius: 0 0 0 10px;
     transition: all .5s ease-in-out;
@@ -105,14 +103,11 @@ body {
 
 .currentDate {
     width: 50%;
-    background: url('../img/calendar2.svg') center center no-repeat;
     background-size: var(--imgSize);
     border-radius: 0 0 10px 0;
     transition: all .5s ease-in-out;
 
 }
-
-
 
 /* area das dos meses  */
 .months {
@@ -161,6 +156,7 @@ th {
 td {
     width: 100%;
     position: relative;
+
 }
 
 
@@ -171,34 +167,36 @@ td {
     display: flex;
     flex-direction: column;
     position: relative;
+
 }
 
 .input {
-    border: 1px solid #0f0f0f;
     width: 93%;
     height: 85%;
     position: absolute;
     right: calc(50% - var(--inputWidth)/2);
     top: var(--buttonSize);
-    background: #1e1e1e;
     resize: none;
-    color: #ffffff;
+
 }
 
 .input:focus {
     outline: none;
+
 }
 
 
 /* abrindo input */
 .input-active {
     grid-template-rows: 110px 10fr 10.5fr;
+
 }
 
 .containerArrown {
     width: 100%;
     height: var(--buttonSize);
     position: relative;
+
 }
 
 .arrown {
@@ -207,9 +205,8 @@ td {
     right: calc(50% - 0.25rem);
     width: 0.5rem;
     height: 0.5rem;
-    border-top: 2px solid white;
-    border-right: 2px solid white;
     transform: rotate(-45deg);
+    
 }
 
 .arrown-active {
@@ -236,15 +233,11 @@ td {
     }
     
     .input {
-        border: 1px solid #0f0f0f;
         width: 87%;
         height: 85%;
         position: absolute;
         top: calc(50% - var(--inputSize)/2);
         left: var(--buttonSize);
-        background: #1e1e1e;
-        resize: none;
-        color: #ffffff;
     }
     
 
@@ -336,7 +329,6 @@ td {
     }
 
     .input {
-        background: #0f0f0f;
         height: 95%;
         width: 95%;
         border-radius: 0 60px 60px 0;

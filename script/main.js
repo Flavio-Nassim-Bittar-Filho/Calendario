@@ -215,8 +215,6 @@ const select = day => {
 
 }
 
-//função para digitar texto
-
 
 // função para selecionar os elementos conforme o valor -> interface grafica
 const selectDay = dayCompare => {
@@ -344,7 +342,16 @@ HTMLbuttons.forEach(button => {
 })
 
 // indo para a data atual
-HTMLcurrentData.addEventListener('click', () => myCalendar = currentData(myCalendar))
+HTMLcurrentData.addEventListener('click', () => {
+    if(myCalendar.getYear() != new Date().getFullYear()) {
+        myCalendar = currentData(myCalendar)
+    } 
+    else {
+        HTMLyear.textContent = myCalendar.getYear()
+        HTMLmonth.textContent = myCalendar.getMonth(new Date().getMonth()).month
+        HTMLdays.forEach((elementD,dIndex) => population(myCalendar,elementD,dIndex))
+    }
+})
 
 // abrindo tabela de meses
 HTMLmonth.addEventListener('click', () => {
