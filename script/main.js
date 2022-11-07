@@ -167,11 +167,11 @@ const HTMLmonths = document.querySelector('.months')
 // tabela de meses para seleção
 const HTMLtbMonths = document.querySelectorAll('.months td')
 
-//botão de texto
-const HTMLinput = document.querySelector('.containerList')
+// botão
+const HTMLinput = document.querySelector('.containerArrown')
 
 // calendario e distribuição de tamanhos 
-const HTMLlist = document.querySelector('.list')
+const HTMLlist = document.querySelector('.calendar')
 
 //texto
 const HTMLtext = document.querySelector('textarea')
@@ -230,7 +230,7 @@ const selectDay = dayCompare => {
     daySelection = validDays.filter(day => day.textContent == dayCompare)[0]
     select(daySelection)
     let dayObj = myCalendar.getMonth(HTMLmonth.textContent).getDay(daySelection.textContent)
-    // console.log(dayObj)
+    console.log(dayObj)
     // dayObj.text = HTMLtext.value
     // console.log(HTMLtext)
     // HTMLtext.value = dayObj.text
@@ -289,10 +289,12 @@ HTMLinput.addEventListener('click', () => {
     if(HTMLlist.classList.contains('input-active')) {
         HTMLlist.classList.remove('input-active')
         HTMLarrown.classList.remove('arrown-active')
+        document.documentElement.style.setProperty('--buttonSize', '100%')
     }
     else {
         HTMLlist.classList.add('input-active')
         HTMLarrown.classList.add('arrown-active')
+        document.documentElement.style.setProperty('--buttonSize', '35px')
 
     }
 

@@ -11,10 +11,11 @@
     font-size: clamp(1rem,2vw,1.5rem);
     --bAno: 10vw;
     --boxCurrent: 35%;
-    --imgSize: 30% max(70%);
+    --imgSize: 30%
+    max(70%);
     --inputSize: 88%;
-    --inputWidth: 95%
-
+    --inputWidth: 95%;
+    --buttonSize: 100%;
 }
 
 /* definindo 100% do display */
@@ -40,6 +41,7 @@ body {
         'c'
         'd'
         'l';
+
 }
 
 
@@ -164,16 +166,11 @@ td {
 
 /* lista de afazeres */
 
-.containerList {
-    width: 100%;
-    height: 30px;
-}
-
 .list {
-    position: relative;
     grid-area: l;
-    height: 30px;
-    transition: height .5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .input {
@@ -182,6 +179,7 @@ td {
     height: 85%;
     position: absolute;
     right: calc(50% - var(--inputWidth)/2);
+    top: var(--buttonSize);
     background: #1e1e1e;
     resize: none;
     color: #ffffff;
@@ -191,9 +189,16 @@ td {
     outline: none;
 }
 
+
 /* abrindo input */
 .input-active {
-    height: 300px;
+    grid-template-rows: 110px 10fr 10.5fr;
+}
+
+.containerArrown {
+    width: 100%;
+    height: var(--buttonSize);
+    position: relative;
 }
 
 .arrown {
@@ -205,7 +210,6 @@ td {
     border-top: 2px solid white;
     border-right: 2px solid white;
     transform: rotate(-45deg);
-    transition: all .5s ease-in-out;
 }
 
 .arrown-active {
@@ -226,32 +230,30 @@ td {
     .current {
         height: 30%;
     }
-    
-    .containerList {
-        width: 45px;
-        height: 100%;
-    }
-    
-    .list {
-        width: 45px;
-        height: 100%;
-        transition: all .5s ease-in-out;
-
-    }
-
-    .input {
-        width: 83%;
-        height: 88%;
-        position: absolute;
-        top: calc(50% - var(--inputSize)/2);
-        left: 45px;
-        background: #1e1e1e;
-    }
 
     .input-active {
-        width: 370px;
+        grid-template-columns: 8fr 8.5fr;
     }
     
+    .input {
+        border: 1px solid #0f0f0f;
+        width: 87%;
+        height: 85%;
+        position: absolute;
+        top: calc(50% - var(--inputSize)/2);
+        left: var(--buttonSize);
+        background: #1e1e1e;
+        resize: none;
+        color: #ffffff;
+    }
+    
+
+    .containerArrown {
+        width: var(--buttonSize);
+        height: 100%;
+        position: relative;
+    }
+
     .arrown {
         transform: rotate(-135deg);
         top: 55%;
@@ -303,9 +305,17 @@ td {
         right: 50%;
     }
 
+    .containerArrown {
+        display: none;
+    }
+
     .arrown {
         display: none;
 
+    }
+
+    .input {
+        position: initial;
     }
 
     .containerList {
