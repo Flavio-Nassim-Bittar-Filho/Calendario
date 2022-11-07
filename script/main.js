@@ -253,6 +253,9 @@ HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
     let startMonth = myCalendar.getMonth(HTMLmonth.textContent).startDay
     let endMonth = myCalendar.getMonth(HTMLmonth.textContent).length + startMonth
 
+    // captura o ultimo dia antes do processamento de mudança de mes
+    oldDay = day.textContent
+
     // Alterando o mes apartir dos dias -> interface grafica
     if(dIndex < startMonth) {
         if((myCalendar.getIndexMonth(HTMLmonth.textContent) - 1) < 0) {
@@ -284,7 +287,7 @@ HTMLdays.forEach((day,dIndex) => day.addEventListener('click', () => {
         }
 
     }
-    selectDay(day.textContent)
+    selectDay(oldDay)
 
 }))
 
