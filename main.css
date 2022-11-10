@@ -1,0 +1,58 @@
+/* imports */
+@import url('style/reset/normalize.css');
+@import url('style/reset/reset.css');
+@import url('style/themes.css');
+@import url('style/components/buttons.css');
+@import url('style/components/tables.css');
+@import url('style/components/control.css');
+@import url('style/components/days.css');
+@import url('style/components/months.css');
+@import url('style/components/annotation.css');
+
+
+
+/* create body position */
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    --imageSize: 30% 70%;
+    --imageSize1: 65%;
+
+}
+
+/* mapped elementes on the calendar */
+.calendar {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    position: relative;
+    grid-template-rows: 1fr 5fr .5fr;
+    grid-template-areas:
+        'control'
+        'days'
+        'annotation';
+
+}
+
+/* positioning calendar elements */
+.control {
+    grid-area: control;
+    min-height: 85px;
+    --yearButtonSize: min(10vw,2.5em);
+    --optionMiddleWidth: min(40%,9em);
+    --optionMiddleHeight: max(35%,1.8em);
+
+}
+
+.days {
+    grid-area: days;
+
+}
+
+.annotation {
+    grid-area: annotation;
+
+}

@@ -1,0 +1,41 @@
+.control ul {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin: 0 auto;
+    height: 80%;
+    width: 90%;
+    position: relative;
+    font-weight: bold;
+
+}
+
+.control li {
+    display: flex;
+
+}
+
+.option_year {
+    align-items: center;
+
+}
+
+.month {
+    cursor: pointer;
+    
+}
+
+.year {
+    margin: 0 10px;
+    
+}
+
+.option_middle {
+    justify-content: space-between;
+    align-self: flex-start;
+    position: absolute;
+    height: var(--optionMiddleHeight);
+    width: var(--optionMiddleWidth);
+    left: calc(50% - (var(--optionMiddleWidth)/2));
+
+}

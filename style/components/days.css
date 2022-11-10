@@ -1,0 +1,25 @@
+.days {
+    table-layout: fixed;
+    width: 100%;
+    
+}
+
+.weekend {
+    color: var(--colorWeekend);
+
+}
+
+.days td {
+    color: var(--colorDay);
+    
+}
+
+.days .valid_day {
+    color: #000000;
+    
+}
+
+.days .valid_day-weekend {
+    color: var(--colorWeekend);
+
+}

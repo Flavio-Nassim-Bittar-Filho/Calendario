@@ -1,0 +1,34 @@
+.months {
+    width: 100%;
+    height: min(calc(100% - 85px),85%);
+    background-color: var(--buttonColor);
+    position: absolute;
+    bottom: 0;
+    right: 100%;
+    z-index: 1;
+    transition: right 1s ease-in-out;
+
+}
+
+.months td, .months-active td {
+    font-weight: bold;
+    color: var(--colorMonth);
+    cursor: pointer;
+
+}
+
+.months-active td:hover {
+    background: #dedede;
+}
+
+.months-active {
+    width: 100%;
+    height: min(calc(100% - 85px),85%);
+    background-color: var(--buttonColor);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    transition: right 1s ease-in-out;
+
+}

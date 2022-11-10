@@ -1,0 +1,8 @@
+/* theme  */
+body[data-theme='default'] {
+    --buttonColor: #efefef;
+    --colorWeekend: #ca1e1e;
+    --colorDay: #b8b8b8;
+    --colorMonth: #000000;
+    
+}

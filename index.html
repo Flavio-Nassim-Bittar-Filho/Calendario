@@ -4,38 +4,38 @@
         <meta charset='UTF-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <link rel='stylesheet' href='style/main.css'>
+        <link rel='stylesheet' href='main.css'>
         <title>Calendario</title>
     </head>
 
-    <body>
+    <body data-theme='default'>
         
         <div class='calendar'>
 
 
             <nav class='control'>
                 <ul>
-                    <li>
-                        <span class='month'>Mes</span>
+                    <li class='option_month'>
+                        <button class='month'>Mes</button>
                     </li>
 
-                    <li class='current'>
-                        <div class='theme'></div>
-                        <div class='currentDate'></div>
+                    <li class='option_middle'>
+                        <button class='theme'></button>
+                        <button class='current_date'></button>
                     </li>
 
-                    <li>
-                        <button class='back'>&lt;</button>
+                    <li class='option_year'>
+                        <button class='back'></button>
                         <span class='year'>Ano</span> 
-                        <button class='next'>&gt;</button>
+                        <button class='next'></button>
                     </li>
                 </ul>
             </nav>
 
             
 
-            <div class='months'>
-                <table class='tbMonth'>
+            <!-- <div class='months'> -->
+                <table class='months'>
                     <tbody>
                         <tr>
                             <td></td>
@@ -59,7 +59,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            <!-- </div> -->
         
 
 
@@ -143,16 +143,20 @@
 
 
 
-            <div class='list'>
-                <div class="containerArrown">
-                    <div class='arrown arrown_dark'></div>
+            <div class='annotation'>
+                <div class='container_text'>
+                    <button class='textButton'></button>
+
                 </div>
+                <!-- <div class="containerArrown">
+                    <div class='arrown'></div>
+                </div> -->
             
-                <textarea class='input'></textarea>
+                <!-- <textarea class='input'></textarea> -->
             </div>
         </div>
 
         
-        <script src="script/main.js"></script>
+        <script src="main.js"></script>
     </body>
 </html>
