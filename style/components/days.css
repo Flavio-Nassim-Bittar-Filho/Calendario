@@ -11,15 +11,34 @@
 
 .days td {
     color: var(--colorDay);
-    
+    border-radius: 15px;
+
 }
 
 .days .valid_day {
-    color: #000000;
-    
+    color: var(--colorValidDay);
+
 }
 
-.days .valid_day-weekend {
+.days .valid_day_weekend {
     color: var(--colorWeekend);
 
 }
+
+.days .marked {
+    text-decoration: underline 3px;
+    text-decoration-color: var(--colorMarked);
+
+}
+
+.current {
+    background-color: var(--colorCurrentDay);
+
+}
+
+.selected {
+    box-shadow: 0px 0px 5px var(--colorSelectedShadow);
+    background-color: var(--colorSelected);
+
+}
+

@@ -89,12 +89,17 @@ const calendar = year => {
 
 
 
+
 // 
 // starting with graphical interface
 // 
 
 
 
+
+
+// HTML body
+const body = document.querySelector('body')
 
 
 // HTML buttons
@@ -120,6 +125,34 @@ const daysTable = []
 htmlTables[1].querySelectorAll('td').forEach(element => daysTable.push(element))
 
 
+// HTML textArea
+const containerText = document.querySelector('.container_text') 
+const textArea = containerText.querySelector('textarea')
+
+
+
+
+
+// indentify current day
+const currentDay = day => {
+
+    if(myCalendar.months.indexOf(myCalendar.getMonth(monthButton.textContent)) == new Date().getMonth() && yearText.textContent == new Date().getFullYear()) {
+        if(day.textContent == new Date().getDate() && (day.classList.contains('valid_day') || day.classList.contains('valid_day_weekend'))) {
+            day.classList.add('current')
+            selected(day.textContent)
+        }
+    }
+    else {
+        day.classList.remove('current')
+        if(day.textContent == 1 && (day.classList.contains('valid_day') || day.classList.contains('valid_day_weekend'))) {
+            selected(1)
+        }
+
+    }
+
+}
+
+
 
 
 
@@ -129,27 +162,49 @@ const plot = () => {
     yearText.textContent = myCalendar.year
 
     daysTable.forEach((day,index) => {
-        day.textContent = myCalendar.getMonth(monthButton.textContent).days[index].day
+        let logicDay = myCalendar.getMonth(monthButton.textContent).days[index]
+        day.textContent = logicDay.day
 
         myCalendar.getMonth(monthButton.textContent).days[index].text == undefined ? day.classList.remove('valid_day') : day.classList.add('valid_day')
 
         if(day.classList.contains('weekend') && day.classList.contains('valid_day')) {
             day.classList.remove('valid_day')
             day.classList.remove('weekend') 
-            day.classList.add('valid_day-weekend') 
+            day.classList.add('valid_day_weekend') 
         } 
-        else if(day.classList.contains('valid_day-weekend') && day.classList.contains('valid_day')) {
+        else if(day.classList.contains('valid_day_weekend') && day.classList.contains('valid_day')) {
             day.classList.remove('valid_day')
         }
-        else if(day.classList.contains('valid_day-weekend')) {
+        else if(day.classList.contains('valid_day_weekend')) {
             day.classList.add('weekend') 
-            day.classList.remove('valid_day-weekend') 
+            day.classList.remove('valid_day_weekend') 
         }
+        
+        // marked day
+        logicDay.text != '' && logicDay.text != undefined ? day.classList.add('marked') : day.classList.remove('marked')
+
+        // current day
+        currentDay(day)
 
     })
-
+    
 }
 
+
+
+
+
+// selected days on screen
+const selected = dayCompare => {
+    const validDays = daysTable.filter(day => day.classList.contains('valid_day') || day.classList.contains('valid_day_weekend'))
+    const daySelected = validDays.filter(day => day.textContent == dayCompare)[0]
+    if(!daySelected.classList.contains('selected')) {
+        daysTable.forEach(day => day.classList.remove('selected'))
+        daySelected.classList.add('selected')
+        textArea.value = myCalendar.getMonth(monthButton.textContent).days.filter(day => day.text != undefined && day.day == daySelected.textContent)[0].text
+    }
+
+}
 
 
 
@@ -224,11 +279,46 @@ monthsTable.forEach(month => {
 
 
 
+
+// go to current day
+currentDateButton.addEventListener('click', () => {
+    if(yearText.textContent == new Date().getFullYear()) {
+        monthButton.textContent = myCalendar.months[new Date().getMonth()].month
+        plot()
+    }
+    else {
+        myCalendar = calendar(new Date().getFullYear())
+        yearText.textContent = myCalendar.year
+        monthButton.textContent = myCalendar.months[new Date().getMonth()].month
+        plot()
+    }
+    
+})
+
+
+
+
+
+
+// set theme
+themeButton.addEventListener('click', () => {
+    const themes = {'default' : 'dark','dark' : 'default'}
+    body.setAttribute('data-theme',themes[body.dataset.theme])
+})
+
+
+
+
+
+
 // click events in days
 daysTable.forEach((day,index) => {
 
     day.addEventListener('click', () => {
 
+        let daySelected = myCalendar.getMonth(monthButton.textContent).days[index].day
+
+        // change month to invalid days
         if(myCalendar.getMonth(monthButton.textContent).days[index].text == undefined) {
             if(index > 27) {
                 if(myCalendar.months.indexOf(myCalendar.getMonth(monthButton.textContent)) + 1 > 11) {
@@ -238,7 +328,6 @@ daysTable.forEach((day,index) => {
                 else {
                     monthButton.textContent = myCalendar.months[myCalendar.months.indexOf(myCalendar.getMonth(monthButton.textContent)) + 1].month
                 }
-                plot()
             }
             else {
                 if(myCalendar.months.indexOf(myCalendar.getMonth(monthButton.textContent)) - 1 < 0) {
@@ -248,10 +337,50 @@ daysTable.forEach((day,index) => {
                 else {
                     monthButton.textContent = myCalendar.months[myCalendar.months.indexOf(myCalendar.getMonth(monthButton.textContent)) - 1].month
                 }
-                plot()
             }
+
+            plot()
+            
         }
+        
+        // selected day
+        selected(daySelected)
 
     })
+
+})
+
+
+
+
+
+
+// opening text area
+textButton.addEventListener('click', () => {
+    if(textButton.classList.contains('text_button-active')) {
+        containerText.classList.remove('container_text-active')
+        containerText.classList.add('container_text')
+        textButton.classList.remove('text_button-active')
+        textButton.classList.add('text_button')
+    }
+    else {
+        containerText.classList.remove('container_text')
+        containerText.classList.add('container_text-active')
+        textButton.classList.remove('text_button')
+        textButton.classList.add('text_button-active')
+    }
+
+})
+
+
+
+
+
+// capture values ​​for each day and mark
+containerText.addEventListener('keyup', () => {
+    const daySelected = daysTable.filter(day => day.classList.contains('selected'))[0]
+    const day =  myCalendar.getMonth(monthButton.textContent).days.filter(day => day.day == daySelected.textContent)[0]
+    day.text = textArea.value
+    textArea.value != '' ? daySelected.classList.add('marked') : daySelected.classList.remove('marked')
 
 })

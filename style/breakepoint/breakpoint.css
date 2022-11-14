@@ -1,0 +1,29 @@
+@media (min-width: 650px) {
+    body .calendar {
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: 1fr 5fr;
+        grid-template-areas: 
+                            'control control'
+                            'days annotation';
+    }
+
+
+    button.text_button ,button.text_button-active {
+        display: none;
+    }
+
+    .container_text {
+        width: 100%;
+        height: 100%;
+        /* transition: height 1s ease-in-out; */
+    
+    }
+    
+    .container_text-active {
+        width: 100%;
+        height: 100%;
+        /* transition: height 1s ease-in-out; */
+    
+    }
+
+}

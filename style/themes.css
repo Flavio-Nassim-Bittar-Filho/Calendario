@@ -1,8 +1,44 @@
 /* theme  */
 body[data-theme='default'] {
-    --buttonColor: #efefef;
+    --colorCalendar: #ffffff;
+    --colorButton: #efefef;
+    --colorFontButton: #000000;
     --colorWeekend: #ca1e1e;
     --colorDay: #b8b8b8;
-    --colorMonth: #000000;
+    --colorValidDay: #000000;
+    --colorFontMonth: #000000;
+    --colorCurrentDay: #efefef;
+    --colorSelected: #002cff2e;
+    --colorSelectedShadow: #1f00ffd1;
+    --colorMarked: #0039ff;
+
+    --imgCurrentDay: url('img/calendar.svg');
+    --imgTheme: url('img/weather.svg');
+    --imgLeftArrown: url('img/arrown-left.svg');
+    --imgRigthArrown: url('img/arrown-rigth.svg');
+    --imgUpArrown: url('img/arrown-up.svg');
+    --imgDownArrown: url('img/arrown-down.svg');
+
+}
+
+body[data-theme='dark'] {
+    --colorCalendar: #101010;
+    --colorButton: #080808;
+    --colorFontButton: #ffffff;
+    --colorWeekend: #ca1e1e;
+    --colorDay: #2e2e2e;
+    --colorValidDay: #ffffff;
+    --colorFontMonth: #ffffff;
+    --colorCurrentDay: #080808;
+    --colorSelected: #002cff2e;
+    --colorSelectedShadow: #1f00ffd1;
+    --colorMarked: #0039ff;
+
+    --imgCurrentDay: url('img/calendar2.svg');
+    --imgTheme: url('img/brightness2.svg');
+    --imgLeftArrown: url('img/arrown-left2.svg');
+    --imgRigthArrown: url('img/arrown-rigth2.svg');
+    --imgUpArrown: url('img/arrown-up2.svg');
+    --imgDownArrown: url('img/arrown-down2.svg');
     
 }

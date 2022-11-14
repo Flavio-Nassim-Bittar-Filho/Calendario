@@ -1,6 +1,6 @@
 th {
     font-weight: bold;
-
+    color: var(--colorValidDay);
 }
 
 td,th {

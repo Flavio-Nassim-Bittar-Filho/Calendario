@@ -1,6 +1,25 @@
 .container_text {
-    position: relative;
+    width: 100%;
+    height: 0px;
+    transition: height 1s ease-in-out;
+
+}
+
+.container_text-active {
+    width: 100%;
+    height: 265px;
+    transition: height 1s ease-in-out;
+
+}
+
+textarea, textarea:focus {
     width: 100%;
     height: 100%;
-
+    resize: none;
+    outline: none;
+    border: none;
+    background-color: var(--colorButton);
+    border-top: 5px solid var(--colorCalendar);
+    color: var(--colorValidDay);
+    
 }

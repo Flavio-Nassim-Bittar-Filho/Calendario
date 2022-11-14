@@ -1,7 +1,7 @@
 .months {
     width: 100%;
     height: min(calc(100% - 85px),85%);
-    background-color: var(--buttonColor);
+    background-color: var(--colorButton);
     position: absolute;
     bottom: 0;
     right: 100%;
@@ -12,7 +12,7 @@
 
 .months td, .months-active td {
     font-weight: bold;
-    color: var(--colorMonth);
+    color: var(--colorFontMonth);
     cursor: pointer;
 
 }
@@ -24,7 +24,7 @@
 .months-active {
     width: 100%;
     height: min(calc(100% - 85px),85%);
-    background-color: var(--buttonColor);
+    background-color: var(--colorButton);
     position: absolute;
     bottom: 0;
     right: 0;

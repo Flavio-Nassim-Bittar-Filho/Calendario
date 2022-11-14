@@ -2,10 +2,10 @@ button {
     border: none;
     cursor: pointer;
     padding: 0;
-    background-color: var(--buttonColor);
+    background-color: var(--colorButton);
     background-position: center center;
     background-repeat: no-repeat;
-
+    color: var(--colorFontButton);
 }
 
 button.month {
@@ -24,20 +24,20 @@ button.back, button.next {
 }
 
 button.back {
-    background-image: url('img/arrown-left.svg');
+    background-image: var(--imgLeftArrown);
     background-size: var(--imageSize1);
 
 }
 
 button.next {
-    background-image: url('img/arrown-rigth.svg');
+    background-image: var(--imgRigthArrown);
     background-size: var(--imageSize1);
 
 }
 
 button.theme {
     width: 49%;
-    background-image: url('img/weather.svg');
+    background-image: var(--imgTheme);
     background-size: var(--imageSize);
     border-radius: 0 0 0 10px;
 
@@ -45,18 +45,24 @@ button.theme {
 
 button.current_date {
     width: 49%;
-    background-image: url('img/calendar.svg');
+    background-image: var(--imgCurrentDay);
     background-size: var(--imageSize);
     border-radius: 0 0 10px 0;
 
 }
 
-button.textButton {
-    position: absolute;
-    bottom: 0;
+button.text_button {
     width: 100%;
-    height: 70%;
-    background-image: url('img/arrown-up.svg');
+    height: 40px;
+    background-image: var(--imgUpArrown);
+    background-size: var(--imageSize);
+
+}
+
+button.text_button-active {
+    width: 100%;
+    height: 40px;
+    background-image: var(--imgDownArrown);
     background-size: var(--imageSize);
 
 }

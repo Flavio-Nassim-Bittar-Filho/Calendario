@@ -8,6 +8,8 @@
 @import url('style/components/days.css');
 @import url('style/components/months.css');
 @import url('style/components/annotation.css');
+@import url('style/breakepoint/breakpoint.css');
+
 
 
 
@@ -24,12 +26,13 @@ body {
 
 /* mapped elementes on the calendar */
 .calendar {
+    background-color: var(--colorCalendar);
     overflow: hidden;
     width: 100%;
     height: 100%;
     display: grid;
     position: relative;
-    grid-template-rows: 1fr 5fr .5fr;
+    grid-template-rows: 1fr 5fr .3fr;
     grid-template-areas:
         'control'
         'days'
@@ -54,5 +57,9 @@ body {
 
 .annotation {
     grid-area: annotation;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    --containerSize: 100%;
 
 }
