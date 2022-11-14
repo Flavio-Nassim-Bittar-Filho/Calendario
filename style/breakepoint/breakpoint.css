@@ -8,21 +8,13 @@
     }
 
 
-    button.text_button ,button.text_button-active {
+    button.text_button, button.text_button-active {
         display: none;
     }
 
-    .container_text {
+    .container_text, .container_text-active {
         width: 100%;
         height: 100%;
-        /* transition: height 1s ease-in-out; */
-    
-    }
-    
-    .container_text-active {
-        width: 100%;
-        height: 100%;
-        /* transition: height 1s ease-in-out; */
     
     }
 
